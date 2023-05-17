@@ -31,4 +31,15 @@ public class PathVariables {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping(value = "/meal/description-match/{phrase}")
+    public ResponseEntity<Meal> getMealByDescription(@PathVariable("phrase") String description){
+        for (Meal meal : marioMeals) {
+            if (meal.getDescription().equalsIgnoreCase(description)) {
+                return ResponseEntity.ok(meal);
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }

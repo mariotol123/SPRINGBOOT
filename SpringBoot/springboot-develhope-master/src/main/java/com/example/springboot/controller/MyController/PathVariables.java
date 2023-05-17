@@ -4,8 +4,10 @@ import com.example.springboot.controller.Meal;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,6 +42,18 @@ public class PathVariables {
             }
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping(value = "/meal/price")
+    public ResponseEntity<List<Meal>> getMealsByPriceRange(@RequestParam("min") double minPrice, @RequestParam("max") double maxPrice) {
+        List<Meal> filteredMeals = new ArrayList<>();
+        for (Meal meal : marioMeals) {
+            double mealPrice = Double.parseDouble(meal.getPrice());
+            if (mealPrice >= minPrice && mealPrice <= maxPrice) {
+                filteredMeals.add(meal);
+            }
+        }
+        return ResponseEntity.ok(filteredMeals);
     }
 
 }

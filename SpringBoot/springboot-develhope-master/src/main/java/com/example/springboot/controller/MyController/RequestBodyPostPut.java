@@ -22,7 +22,7 @@ public class RequestBodyPostPut {
     }
 
     @PutMapping("/meal/{name}")
-    public ResponseEntity<String> updateMeal(@PathVariable String name, @RequestBody Meal updatedMeal) {
+    public ResponseEntity<String> updateMeal(@PathVariable ("name")String name, @RequestBody Meal updatedMeal) {
         for (Meal meal : marioMeals) {
             if (meal.getName().equals(name)) {
                 meal.setDescription(updatedMeal.getDescription());
@@ -34,14 +34,14 @@ public class RequestBodyPostPut {
     }
 
     @DeleteMapping(value = "delete/meal{name}")
-    public ResponseEntity<String> deleteMeal(@PathVariable String name){
+    public ResponseEntity<String> deleteMeal(@PathVariable("name") String name){
         marioMeals.removeIf(meal -> meal.getName().equals(name));
         return ResponseEntity.ok("Im deleting");
     }
 
 
     @DeleteMapping(value = "/meal/price/{price}")
-    public ResponseEntity<String> deleteMealsAbovePrice(@PathVariable double price) {
+    public ResponseEntity<String> deleteMealsAbovePrice(@PathVariable("price") double price) {
         int initialSize = marioMeals.size();
         marioMeals = marioMeals.stream()
                 .filter(meal -> Double.parseDouble(meal.getPrice()) <= price)
@@ -56,7 +56,7 @@ public class RequestBodyPostPut {
 
 
     @PutMapping(value = "/meal/{name}/price")
-    public ResponseEntity<String> updateMealPrice(@PathVariable String name, @RequestBody String updatedPrice) {
+    public ResponseEntity<String> updateMealPrice(@PathVariable("name") String name, @RequestBody String updatedPrice) {
         for (Meal meal : marioMeals) {
             if (meal.getName().equals(name)) {
                 meal.setPrice(updatedPrice);

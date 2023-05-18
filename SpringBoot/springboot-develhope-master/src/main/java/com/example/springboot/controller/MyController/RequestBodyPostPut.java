@@ -55,4 +55,14 @@ public class RequestBodyPostPut {
     }
 
 
+    @PutMapping(value = "/meal/{name}/price")
+    public ResponseEntity<String> updateMealPrice(@PathVariable String name, @RequestBody String updatedPrice) {
+        for (Meal meal : marioMeals) {
+            if (meal.getName().equals(name)) {
+                meal.setPrice(updatedPrice);
+                return ResponseEntity.ok("Meal price updated successfully!");
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class RequestBodyPostPut {
     List<Meal> marioMeals = Arrays.asList(
@@ -35,6 +37,21 @@ public class RequestBodyPostPut {
     public ResponseEntity<String> deleteMeal(@PathVariable String name){
         marioMeals.removeIf(meal -> meal.getName().equals(name));
         return ResponseEntity.ok("Im deleting");
+    }
+
+
+    @DeleteMapping(value = "/meal/price/{price}")
+    public ResponseEntity<String> deleteMealsAbovePrice(@PathVariable double price) {
+        int initialSize = marioMeals.size();
+        marioMeals = marioMeals.stream()
+                .filter(meal -> Double.parseDouble(meal.getPrice()) <= price)
+                .collect(Collectors.toList());
+
+        if (marioMeals.size() < initialSize) {
+            return ResponseEntity.ok("Meals above the specified price deleted successfully!");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

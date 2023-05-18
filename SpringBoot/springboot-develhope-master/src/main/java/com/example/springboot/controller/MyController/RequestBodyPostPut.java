@@ -2,9 +2,7 @@ package com.example.springboot.controller.MyController;
 
 import com.example.springboot.controller.Meal;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,5 +17,17 @@ public class RequestBodyPostPut {
     public ResponseEntity<String> addMeal(@RequestBody Meal newMeal) {
         marioMeals.add(newMeal);
         return ResponseEntity.ok("New meal added successfully!");
+    }
+
+    @PutMapping("/meal/{name}")
+    public ResponseEntity<String> updateMeal(@PathVariable String name, @RequestBody Meal updatedMeal) {
+        for (Meal meal : marioMeals) {
+            if (meal.getName().equals(name)) {
+                meal.setDescription(updatedMeal.getDescription());
+                meal.setPrice(updatedMeal.getPrice());
+                return ResponseEntity.ok("Meal updated successfully!");
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
 }

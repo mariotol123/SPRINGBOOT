@@ -30,4 +30,12 @@ public class RequestBodyPostPut {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @DeleteMapping(value = "delete/meal{name}")
+    public ResponseEntity<String> deleteMeal(@PathVariable String name){
+        marioMeals.removeIf(meal -> meal.getName().equals(name));
+        return ResponseEntity.ok("Im deleting");
+    }
+
+
 }

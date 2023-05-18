@@ -2,9 +2,7 @@ package com.example.springboot.controller;
 
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +27,25 @@ public class MealController {
             return ResponseEntity.badRequest().body("Invalid");
         }
         return ResponseEntity.ok(chefsSpecial.get(dayOfTheWeekendIndex));
+    }
+
+    @PutMapping(value = "put/meal")
+    public ResponseEntity<String> putMeals(@RequestBody Meal meal){
+        this.chefsSpecial.add(meal);
+        return ResponseEntity.ok("Meal added");
+    }
+
+    @DeleteMapping (value = "delete/meal{mealName}")
+    public ResponseEntity<String> deleteMeals(@PathVariable String mealName){
+        this.chefsSpecial.removeIf(meal -> meal.getName().equals(mealName));
+        return ResponseEntity.ok("Meal removed");
+    }
+
+    @PostMapping(value = "post/meal")
+    public ResponseEntity<String> postMeals(@RequestBody Meal meal){
+        this.chefsSpecial.removeIf(meal1 -> meal.getName().equals(meal.getName()));
+        this.chefsSpecial.add(meal);
+        return ResponseEntity.ok("Meal updated");
     }
 
 }

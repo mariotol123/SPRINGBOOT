@@ -16,12 +16,12 @@ public class MealService {
         this.anotherMealDao = anotherMealDao;
     }
 
-    public void addMeal(Meal meal) {
+    public void addMeal(com.example.springboot.model.Meal meal) {
         if (meal == null) throw new IllegalArgumentException("meal cannot add");
         if (meal.getName() == null || meal.getName().isEmpty()) throw new IllegalArgumentException("Meal name cannot be null or empty");
         if (meal.getDescription() == null || meal.getDescription().isEmpty()) throw new IllegalArgumentException("Meal description dont exist");
         if (meal.getPrice() <= 0) throw new IllegalArgumentException("Meal price cannot be less than or equal to 0!");
-        if (meal.getPrice() > 100 ) throw new IllegalArgumentException("Meal price cannot be greater than 100!");
+        if (meal.getPrice() > 100) throw new IllegalArgumentException("Meal price cannot be greater than 100!");
         anotherMealDao.addMeal(meal);
     }
 

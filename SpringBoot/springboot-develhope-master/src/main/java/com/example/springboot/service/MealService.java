@@ -1,7 +1,7 @@
 package com.example.springboot.service;
 
-import com.example.springboot.controller.Meal;
 import com.example.springboot.dao.AnotherMealDao;
+import com.example.springboot.model.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +33,7 @@ public class MealService {
         anotherMealDao.updateMeal(meal);
     }
 
-    public List<Meal> getMeals(){
+    public List<com.example.springboot.model.Meal> getMeals(){
         return anotherMealDao.getMeals();
     }
 }

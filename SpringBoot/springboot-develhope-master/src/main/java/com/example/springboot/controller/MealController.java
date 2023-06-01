@@ -2,6 +2,7 @@ package com.example.springboot.controller;
 
 
 import com.example.springboot.dao.AnotherMealDao;
+import com.example.springboot.model.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class MealController {
     //}
 
     @PutMapping(value = "put/meal")
-    public ResponseEntity<String> putMeals(@RequestBody Meal meal){
+    public ResponseEntity<String> putMeals(@RequestBody com.example.springboot.model.Meal meal){
         try {
             anotherMealDao.addMeal(meal);
             return ResponseEntity.ok("Meal added");

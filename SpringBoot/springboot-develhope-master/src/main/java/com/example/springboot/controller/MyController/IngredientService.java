@@ -1,5 +1,6 @@
 package com.example.springboot.controller.MyController;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.NoSuchElementException;
 public class IngredientService {
     private final IngredientRepository ingredientRepository;
 
+    @Autowired
     public IngredientService(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
     }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-@Component
+
 @Service
 public class IngredientService {
     private final IngredientRepository ingredientRepository;

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class MealController {
     @Autowired
@@ -17,22 +19,22 @@ public class MealController {
 
     private AnotherMealDao anotherMealDao;
 
-   /// @GetMapping(value = "/get/chefs-special")
-   // public ResponseEntity<Meal> index() {return ResponseEntity.ok(
-            //anotherMealDao.get((int) (Math.random() * mealService.size()))
+    /// @GetMapping(value = "/get/chefs-special")
+    // public ResponseEntity<Meal> index() {return ResponseEntity.ok(
+    //anotherMealDao.get((int) (Math.random() * mealService.size()))
     //);
     //}
 
     //@GetMapping(value = "/get/chefs-special2/{dayOfTheWeekendIndex}")
     //public ResponseEntity<?> getChefsSpecial(@PathVariable("dayOfTheWeekendIndex") int dayOfTheWeekendIndex){
-        //if (dayOfTheWeekendIndex < 0 ||dayOfTheWeekendIndex > 4){
-          //  return ResponseEntity.badRequest().body("Invalid");
-       // }
-        //return ResponseEntity.ok(chefsSpecial.get(dayOfTheWeekendIndex));
+    //if (dayOfTheWeekendIndex < 0 ||dayOfTheWeekendIndex > 4){
+    //  return ResponseEntity.badRequest().body("Invalid");
+    // }
+    //return ResponseEntity.ok(chefsSpecial.get(dayOfTheWeekendIndex));
     //}
 
     @PutMapping(value = "put/meal")
-    public ResponseEntity<String> putMeals(@RequestBody com.example.springboot.model.Meal meal){
+    public ResponseEntity<String> putMeals(@RequestBody com.example.springboot.model.Meal meal) {
         try {
             anotherMealDao.addMeal(meal);
             return ResponseEntity.ok("Meal added");
@@ -41,16 +43,26 @@ public class MealController {
         }
     }
 
-    @DeleteMapping (value = "delete/meal{mealName}")
-    public ResponseEntity<String> deleteMeals(@PathVariable String mealName){
+    @DeleteMapping(value = "delete/meal{mealName}")
+    public ResponseEntity<String> deleteMeals(@PathVariable String mealName) {
         anotherMealDao.deleteMeal(mealName);
         return ResponseEntity.ok("Meal removed");
     }
 
     @PostMapping(value = "post/meal")
-    public ResponseEntity<String> postMeals(@RequestBody Meal meal){
+    public ResponseEntity<String> postMeals(@RequestBody Meal meal) {
         anotherMealDao.updateMeal(meal);
         return ResponseEntity.ok("Meal updated");
     }
 
+    @GetMapping("/summer-meals")
+    public ResponseEntity<List<Meal>> getSummerMeals(){
+        return ResponseEntity.ok(anotherMealDao.getSummerMeals());
+    }
+
+
+    @GetMapping("/winter-meals")
+    public ResponseEntity<List<Meal>> getWinterMeals(){
+        return ResponseEntity.ok(anotherMealDao.getWinterMeals());
+    }
 }

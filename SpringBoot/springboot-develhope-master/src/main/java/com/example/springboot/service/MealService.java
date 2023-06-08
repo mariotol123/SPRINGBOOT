@@ -1,6 +1,7 @@
 package com.example.springboot.service;
 
 import com.example.springboot.dao.AnotherMealDao;
+import com.example.springboot.dao.MealDao;
 import com.example.springboot.model.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,8 @@ import java.util.List;
 
 @Service
 public class MealService {
-    private  AnotherMealDao anotherMealDao;
+    private AnotherMealDao anotherMealDao;
+    private Double MIN_SUMMER_TEMP = 20.0;
     @Autowired
     public MealService(AnotherMealDao anotherMealDao) {
 
@@ -36,4 +38,5 @@ public class MealService {
     public List<com.example.springboot.model.Meal> getMeals(){
         return anotherMealDao.getMeals();
     }
+
 }

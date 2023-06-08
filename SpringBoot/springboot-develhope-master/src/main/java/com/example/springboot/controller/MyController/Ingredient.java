@@ -1,9 +1,10 @@
 package com.example.springboot.controller.MyController;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.springboot.controller.Meal;
+import com.example.springboot.controller.MealController;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 @Entity
 public class Ingredient {
@@ -18,14 +19,26 @@ public class Ingredient {
     private boolean isGlutenFree;
     private boolean isLactoseFree;
 
-    public Ingredient(int id, String name, String description, boolean isVegetarian, boolean isVegan, boolean isGlutenFree, boolean isLactoseFree) {
-        this.id = id;
+    @JsonBackReference
+    @ManyToOne
+    private com.example.springboot.controller.Meal meal;
+
+
+    public Ingredient(String name, String description, boolean isVegetarian, boolean isVegan, boolean isGlutenFree, boolean isLactoseFree) {
         this.name = name;
         this.description = description;
         this.isVegetarian = isVegetarian;
         this.isVegan = isVegan;
         this.isGlutenFree = isGlutenFree;
         this.isLactoseFree = isLactoseFree;
+    }
+
+    public Meal getMeal() {
+        return meal;
+    }
+
+    public void setMeal(Meal meal) {
+        this.meal = meal;
     }
 
     public Ingredient(){
